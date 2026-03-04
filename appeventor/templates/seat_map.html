@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Seat Map{% if event %} for {{ event.name }}{% endif %}</h2>
+<div id="seats">
+    {% if event %}
+        <div class="seat-rows">
+            {% for seat in event.seats.all|dictsort:"row" %}
+                <!-- simplified: show seat row and number -->
+                <span class="seat {{ seat.status }}" data-seat-id="{{ seat.id }}">{{ seat.row }}{{ seat.number }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No event selected.</p>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('seat') && e.target.classList.contains('available')) {
+        const seatId = e.target.dataset.seatId;
+        const seatUrl = "{% url 'seat-map' event.id %}";
+        fetch(seatUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({seat_id: seatId})
+        }).then(r => r.json()).then(data => {
+            if (data.status === 'success') {
+                e.target.classList.remove('available');
+                e.target.classList.add('occupied');
+            } else {
+                alert('Unable to reserve seat');
+            }
+        });
+    }
+});
+</script>
+
+<style>
+.seat { display:inline-block;padding:5px;margin:3px;border:1px solid #777;cursor:pointer; }
+.seat.available { background:#afa; }
+.seat.occupied { background:#faa; cursor:not-allowed; }
+</style>
+{% endblock %}

@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .b1{
+        width:60px;
+        height:30px;
+        background-color:pink;
+        text-align:center;
+        border-radius:10px;
+        }
+        .b1:hover{
+            letter-spacing:1px;
+            background-color:#fff;
+        }
+    /* Banner background image (cover) and overlay */
+    .main-banner{
+        position:relative;
+        min-height:520px;
+        background-size:cover;
+        background-position:center center;
+        background-repeat:no-repeat;
+        display:flex;
+        align-items:center;
+    }
+    .main-banner::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55));
+        z-index:1;
+    }
+    .main-banner .main-content, .main-banner .counter-content{ position:relative; z-index:2; }
+    /* Add vertical spacing below the banner */
+    .show-events-carousel{ margin-top:140px; }
+    .amazing-venues{ padding-top:100px; }
+    /* extra space before the venue-tickets section */
+    .venue-tickets{ margin-top:60px; }
+</style>
+
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    
+    <!-- ***** Pre HEader ***** -->
+    <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <span>Hey! The Show is Starting in 15 Days.</span>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div class="text-button">
+                        <a href="{% url 'shows-events'%}">Contact Us Now! <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url 'index'%}" class="logo">Fest <em> Event</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="{% url 'index'%}" class="active">Home</a></li>
+                            <li><a href="{% url 'about'%}">About Us</a></li>
+                            <li><a href="{% url 'rent-venue'%}">Wedding</a></li>
+                            <li><a href="{% url 'shows-events'%}">Shows Events</a></li> 
+                            <li><a href="{% url 'tickets'%}">Booking</a></li> 
+                            <li>
+                                {%if user.email%}
+                                <a href="{% url 'profile'%}">{{user.name}}</a>
+                                <img class="rounded-circle me-lg-2" src="../static/img/user.jpg" alt="" style="width: 40px; height: 40px; position:relative; left:50px; top:-35px">
+                                {%else%}
+                                <a href="{% url 'login_user'%}" class="b1">Login</a> 
+                                {%endif%}
+                            </li> 
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" style="background-image: url('{% static 'assets/images/2.jpg' %}');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-content">
+                        
+                        <h6>Opening on Saturday,March 2026</h6>
+                        <h2>The Usamis Festival</h2>
+                        <div class="main-white-button">
+                            <a href="{% url 'ticket-details'%}">Booking Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- *** Owl Carousel Items ***-->
+    <div class="show-events-carousel">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="owl-show-events owl-carousel">
+                        <div class="item">
+                            <a href="{% url 'event-details'%}"><img src="{% static 'assets/images/img1.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="item">
+                            <a href="{% url 'event-details'%}"><img src="{% static 'assets/images/img2.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="item">
+                            <a href="{% url 'event-details'%}"><img src="{% static 'assets/images/img3.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="item">
+                            <a href="{% url 'event-details'%}"><img src="{% static 'assets/images/img4.jpg' %}" alt=""></a>
+                        </div>
+                        <div class="item">
+                            <a href="{% url 'event-details'%}"><img src="{% static 'assets/images/img5.jpg' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- *** Amazing Venus ***-->
+    <div class="amazing-venues">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="left-content">
+                        <h4>Three Exceptional Venues for Every Occasion</h4>
+                        <p>DreamEvent Template is thoughtfully designed to help you build a modern and professional event website. This template includes 7 fully structured HTML pages: Home, About Us, Venue Booking, Upcoming Events, Event Details, Tickets, and Ticket Information. Each page is carefully crafted and can be customized to suit your brand, style, and business needs. Feel free to edit layouts, content, and design elements as required. If you need assistance, please visit our Contact section for support. 
+                            These are <a href="{% url 'index'%}">Homepage</a>, <a href="{% url 'about'%}">About</a>, 
+                            <a href="{% url 'rent-venue'%}">Rent a venue</a>, <a href="{% url 'shows-events'%}">shows &amp; events</a>, 
+                            <a href="{% url 'event-details'%}">event details</a>, <a href="{% url 'tickets'%}">tickets</a>, and <a href="{% url 'ticket-details'%}">ticket details</a>.
+                        You can feel free to modify any page as you like. If you have any question, please visit our <a href="https://www.tooplate.com/contact" target="_blank">Contact page</a>.</p>
+                        <br>
+                        <p>This template is suitable for commercial and corporate use. However, redistribution or resale of the template files on any third-party template marketplace is strictly prohibited. For more contemporary and responsive website designs, you may explore other premium template collections available across various categories online.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="right-content">
+                        <h5><i class="fa fa-map-marker"></i> Visit Us</h5>
+                        <span>Nigam Nagar, <br>Ahemdabad,Gujarat <br>India</span>
+                        <div class="text-button"><a href="https://maps.app.goo.gl/by3da92xhH1XSnmb6" target="_blank" rel="noopener">Need Directions? <i class="fa fa-arrow-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *** Map ***-->
+    <div class="map-image">
+        <img src="../static/assets/images/map1.png" alt="Maps of 3 Venues">
+    </div>
+
+
+    <!-- *** Venues & Tickets ***-->
+    <div class="venue-tickets">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading">
+                        <h2>Venue Tickets</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img8.jpg" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Award Ceremony Night</h4>
+                                <p>Join us for an elegant evening recognizing talent, dedication, and success in a spectacular celebration.</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>250</li>
+                                    <li><i class="fa fa-user"></i>500</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹2550</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img15.jpg" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Business Event</h4>
+                                <p>Elevate your brand presence and connect with key decision-makers at this exclusive corporate event.</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>250</li>
+                                    <li><i class="fa fa-user"></i>500</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹1250</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img14.webp" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Neon Glow Party</h4>
+                                <p>Experience electrifying beats under UV lights where neon colors glow and the party never stops tonight.</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>250</li>
+                                    <li><i class="fa fa-user"></i>500</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹950</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img10.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Holi Party</h4>
+                                <p>Experience non-stop Holi madness with friends, splash in colorful rain dance, enjoy live performances, and secure your entry early!</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>250</li>
+                                    <li><i class="fa fa-user"></i>500</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹550</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img7.jpg" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Anuv Jain</h4>
+                                <p>Experience soulful melodies and heartfelt lyrics live with Anuv Jain, creating magical moments you will cherish forever tonight.</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>450</li>
+                                    <li><i class="fa fa-user"></i>650</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹900</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="venue-item">
+                        <div class="thumb">
+                            <img src="../static/assets/images/img6.webp" alt="">
+                        </div>
+                        <div class="down-content">
+                            <div class="left-content">
+                                <div class="main-white-button">
+                                    <a href="{% url 'ticket-details'%}">Purchase Tickets</a>
+                                </div>
+                            </div>
+                            <div class="right-content">
+                                <h4>Sufi Night</h4>
+                                <p>Join us for an enchanting evening where music, devotion, and serenity blend beautifully into unforgettable memories.</p>
+                                <ul>
+                                    <li><i class="fa fa-sitemap"></i>450</li>
+                                    <li><i class="fa fa-user"></i>750</li>
+                                </ul>
+                                <div class="price">
+                                    <span>1 ticket<br>from <em>₹1000</em></span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *** Coming Events ***-->
+    <div class="coming-events">
+        <div class="left-button">
+            <div class="main-white-button">
+                <a href="{% url 'shows-events'%}">Discover More</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="event-item">
+                        <div class="thumb">
+                            <a href="{% url 'event-details'%}"><img src="../static/assets/images/j4.jpg" alt=""></a>
+                        </div>
+                        <div class="down-content">
+                            <a href="{% url 'event-details'%}"><h4>Hackathon Event</h4></a>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i> Tuesday: 15:30-19:30</li>
+                                <li><i class="fa fa-map-marker"></i>Sabarmati Riverfront Event Centre</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="event-item">
+                        <div class="thumb">
+                            <a href="{% url 'event-details'%}"><img src="../static/assets/images/j2.jpg" alt=""></a>
+                        </div>
+                        <div class="down-content">
+                            <a href="{% url 'event-details'%}"><h4>Art & Craft Exhibition</h4></a>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i> Wednesday: 08:00-14:00</li>
+                                <li><i class="fa fa-map-marker"></i> Rajpath Club Diamond Hall</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="event-item">
+                        <div class="thumb">
+                            <a href="{% url 'event-details'%}"><img src="../static/assets/images/j6.jpg" alt=""></a>
+                        </div>
+                        <div class="down-content">
+                            <a href="{% url 'event-details'%}"><h4>Talent Hunt Show</h4></a>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i> Thursday: 09:00-23:00</li>
+                                <li><i class="fa fa-map-marker"></i>Tagore Hall</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *** Subscribe *** -->
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4>Subscribe Our Newsletter:</h4>
+                </div>
+                <div class="col-lg-8">
+                    <form id="subscribe" action="" method="get">
+                        <div class="row">
+                          <div class="col-lg-9">
+                            <fieldset>
+                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-3">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button">Submit</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- *** Footer *** -->
+    {% endblock %}
+ 

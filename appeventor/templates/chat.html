@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Assistant Chatbot</h2>
+<div id="chat-window" style="border:1px solid #ccc;padding:10px;height:300px;overflow:auto;"></div>
+<form id="chat-form">
+    <input type="text" id="chat-input" placeholder="Type a message..." style="width:80%;" />
+    <button type="submit">Send</button>
+</form>
+
+<script>
+const form = document.getElementById('chat-form');
+const input = document.getElementById('chat-input');
+const windowDiv = document.getElementById('chat-window');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    // add to window
+    const userDiv = document.createElement('div');
+    userDiv.textContent = 'You: ' + text;
+    windowDiv.appendChild(userDiv);
+    input.value = '';
+
+    fetch("{% url 'chat' %}", {
+        method: 'POST',
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        body: new URLSearchParams({message: text})
+    })
+    .then(r => r.json())
+    .then(data => {
+        const botDiv = document.createElement('div');
+        botDiv.textContent = 'Bot: ' + data.reply;
+        windowDiv.appendChild(botDiv);
+        windowDiv.scrollTop = windowDiv.scrollHeight;
+    });
+});
+</script>
+{% endblock %}
